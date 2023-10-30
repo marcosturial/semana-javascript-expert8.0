@@ -145,7 +145,6 @@ export default class VideoProcessor {
                 this.#webMWriter.addFrame(chunk)
             },
             close() {
-                debugger
             },
         })
         return {

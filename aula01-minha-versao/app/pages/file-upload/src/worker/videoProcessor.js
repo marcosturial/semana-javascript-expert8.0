@@ -150,7 +150,8 @@ export default class VideoProcessor {
 
     upload(fileName, resolution, type) {
         const chunks = []
-        let byteCount
+        let byteCount = 0
+        let segmentCount = 0
         const triggerUpload = async chunks => {
             const blob = new Blob(
                 chunks,
@@ -158,7 +159,7 @@ export default class VideoProcessor {
             )
             // fazer upload
             await this.#service.uploadFile({
-                fileName: fileName.concat('-144p.webm'),
+                fileName: `${fileName}-${resolution}.${++segmentCount}${type}`,
                 fileBuffer: blob
             })
 
@@ -205,11 +206,9 @@ export default class VideoProcessor {
             //     }
             // }))
             .pipeTo(this.upload(fileName, '144p', 'webm'))
-        // .pipeTo(new WritableStream({
-        //     write(frame) {
-        //         // debugger
-        //         // renderFrame(frame)
-        //     }
-        // }))
+
+        sendMessage({
+            status: 'done'
+        })
     }
 }

@@ -15,7 +15,6 @@ worker.onmessage = ({ data }) => {
     if (data.status !== 'done') return;
     clock.stop()
     view.updateElapsedTime(`Process took ${took.replace('ago', '')}`)
-    debugger
     if (!data.buffers) return
     view.downloadBlobAsFile(
         data.buffers,
@@ -54,7 +53,7 @@ async function fakeFetch() {
     document.getElementById('fileUpload').dispatchEvent(event)
 }
 
-fakeFetch()
+// fakeFetch()
 
 
 
